@@ -18,7 +18,6 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 @EnableWebSecurity
 public class SecurityConfig {
 
-    // Define the passwordEncoder method
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -45,13 +44,13 @@ public class SecurityConfig {
     @Bean
     public UserDetailsService userDetailsService() {
         UserDetails user = User.withUsername("user")
-                .password(passwordEncoder().encode("password")) // Use passwordEncoder() here
+                .password(passwordEncoder().encode("password"))
                 .roles("USER")
                 .build();
 
         UserDetails admin = User.withUsername("admin")
-                .password(passwordEncoder().encode("admin")) // Use passwordEncoder() here
-                .roles("ADMIN")
+                .password(passwordEncoder().encode("admin"))
+                .roles("ADMIN","USER")
                 .build();
 
         return new InMemoryUserDetailsManager(user, admin);
